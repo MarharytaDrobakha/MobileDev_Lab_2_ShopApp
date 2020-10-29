@@ -29,6 +29,7 @@ class MyCatalog extends StatelessWidget {
   }
 }
 
+
 class _AddButton extends StatelessWidget {
   final Item item;
 
@@ -87,11 +88,16 @@ class _MyAppBar extends StatelessWidget {
   }
 }
 
-class _MyListItem extends StatelessWidget {
+class _MyListItem extends StatefulWidget {
   final int index;
 
   _MyListItem(this.index, {Key key}) : super(key: key);
 
+  @override
+  __MyListItemState createState() => __MyListItemState();
+}
+
+class __MyListItemState extends State<_MyListItem> {
   BoxDecoration myBoxDecoration() {
     return BoxDecoration(
       border: Border.all(),
@@ -103,7 +109,7 @@ class _MyListItem extends StatelessWidget {
     var item = context.select<CatalogModel, Item>(
       // Here, we are only interested in the item at [index]. We don't care
       // about any other change.
-      (catalog) => catalog.getByPosition(index),
+      (catalog) => catalog.getByPosition(widget.index),
     );
     var isInCart = context.select<CartModel, bool>(
       // Here, we are only interested whether [item] is inside the cart.
